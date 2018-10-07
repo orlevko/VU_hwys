@@ -1598,6 +1598,7 @@ stargazer(ols.full.Rays_1970_5k, ols.full.length_hwys_1970, ols.full.inst.Rays_1
 # Model illustration - manual ---------------------------------------------
 
 xmax = 55
+ymax = 130
 sagr = 3.612075
 fig = data.frame(dist = seq(0,xmax,0.01))
 fig$s1 = 3.1748/(0.0255+0.1*fig$dist)^1.6667
@@ -1615,8 +1616,8 @@ gr.hwys<-
 ggplot(fig) + aes(x = dist, color = var) +
   geom_ribbon(aes(ymin = 0, ymax = value), fill = "grey70", alpha = 0.25) +
   geom_line(aes(y=value), size = 1) + 
-  coord_cartesian(xlim = c(0, xmax), ylim = c(0,150)) +
-  annotate("text", x = -2, y = 150, parse = TRUE, label =as.character(expression(S^{1})), size=4) +
+  coord_cartesian(xlim = c(0, xmax), ylim = c(0,ymax)) +
+  annotate("text", x = -2, y = ymax, parse = TRUE, label =as.character(expression(S^{1})), size=4) +
   annotate("text", x = -2, y = 35, parse = TRUE, label =as.character(expression(S^{2})), size=4) +
   annotate("text", x = -2, y = 65, parse = TRUE, label =as.character(expression(S^{3})), size=4) +
   annotate("text", x = -2, y = 115, parse = TRUE, label =as.character(expression(S^{4})), size=4) +
@@ -1624,15 +1625,19 @@ ggplot(fig) + aes(x = dist, color = var) +
   annotate("text", x = 10, y = -4, parse = TRUE, label =as.character(expression(x^{l})), size=4) +
   annotate("text", x = 25, y = -4, parse = TRUE, label =as.character(expression(x^{u})), size=4) +
   annotate("text", x = 9.04, y = -4, parse = TRUE, label =as.character(expression(bar(x^{1}))), size=4) +
-  annotate("text", x = 46, y = -4, parse = TRUE, label =as.character(expression(bar(x^{2}))), size=4) +
-  annotate("text", x = 50, y = -4, parse = TRUE, label =as.character(expression(bar(x^{3}))), size=4) +
-  annotate("text", x = 54, y = -4, parse = TRUE, label =as.character(expression(bar(x^{4}))), size=4) +
+  annotate("text", x = 46.29, y = -4, parse = TRUE, label =as.character(expression(bar(x^{2}))), size=4) +
+  annotate("text", x = 50.66, y = -4, parse = TRUE, label =as.character(expression(bar(x^{3}))), size=4) +
+  annotate("text", x = 54.30, y = -4, parse = TRUE, label =as.character(expression(bar(x^{4}))), size=4) +
   annotate("text", x = 2.465882, y = -4, parse = TRUE, label =as.character(expression(hat(x)["1"])), size=4) +
   annotate("text", x = 1.694118, y = -4, parse = TRUE, label =as.character(expression(hat(x)["2"])), size=4) +
   geom_segment(aes(x = 0, y = 0, xend = xmax, yend =0), linetype = 1, size=1, color = "black") +
-  geom_segment(aes(x = 0, y = 0, xend = 0, yend =150), linetype = 1, size=1, color = "black") +
-  geom_segment(aes(x = 10, y = 0, xend = 10, yend =150), linetype = 3, size=1, color = "black") +
-  geom_segment(aes(x = 25, y = 0, xend = 25, yend =150), linetype = 3, size=1, color = "black") +
+  geom_segment(aes(x = 0, y = 0, xend = 0, yend =ymax), linetype = 1, size=1, color = "black") +
+  geom_segment(aes(x = 10, y = 0, xend = 10, yend =ymax), linetype = 3, size=1, color = "black") +
+  geom_segment(aes(x = 25, y = 0, xend = 25, yend =ymax), linetype = 3, size=1, color = "black") +
+  geom_segment(aes(x = 9.04, y = 0, xend = 9.04, yend =sagr), linetype = 2, size=0.5, color = "black") +
+  geom_segment(aes(x = 46.29, y = 0, xend = 46.29, yend =sagr), linetype = 2, size=0.5, color = "black") +
+  geom_segment(aes(x = 50.66, y = 0, xend = 50.66, yend =sagr), linetype = 2, size=0.5, color = "black") +
+  geom_segment(aes(x = 54.30, y = 0, xend = 54.30, yend =sagr), linetype = 2, size=0.5, color = "black") +
   geom_segment(aes(x = 2.465882, y = 0, xend = 2.465882, yend =fig$value[fig$dist==2.46 & fig$var =='s1']), linetype = 2, size=0.5, color = "black") +
   geom_segment(aes(x = 1.694118, y = 0, xend = 1.694118, yend =fig$value[fig$dist==1.69 & fig$var =='s1']), linetype = 2, size=0.5, color = "black") +
   geom_segment(aes(x = 0, y = sagr, xend = xmax, yend =sagr), linetype = 2, size=0.5, color = "black") +
@@ -1640,5 +1645,5 @@ ggplot(fig) + aes(x = dist, color = var) +
   theme_classic() + theme(legend.position="none", axis.line=element_blank(), axis.text.x=element_blank(), axis.text.y=element_blank(),  axis.ticks.x=element_blank(), axis.ticks.y=element_blank()) + xlab("Distance") + ylab("log (Population density)")
 
 gr.hwys
-ggsave(file="C:/Users/Orlevko/Documents/0 - ERC/Data/R/Fig1_fix.png", gr.hwys)
+ggsave(file="C:/Users/Orlevko/Documents/0 - ERC/Data/R/Fig1_fix.png", gr.hwys, width = 15, height = 10)
   

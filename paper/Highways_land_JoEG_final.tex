@@ -1,0 +1,515 @@
+\documentclass[a4paper,authoryear,review]{elsarticle}  	%% Review version
+\usepackage{geometry} % [paperwidth=17cm,paperheight=24cm]
+\geometry{top=25mm, bottom=20mm, left=25mm, right=25mm}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb, amsmath, amsthm, booktabs, dcolumn, caption, array, setspace} 
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage{graphicx, epstopdf}
+\usepackage{rotating}
+\usepackage{chngcntr}% hyperref,  verbatim, tikz
+\usepackage[capposition=top]{floatrow}
+\usepackage[official]{eurosym}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage{tocloft}
+\setlength{\cfttabnumwidth}{3em}
+\setlength{\cftfignumwidth}{3em}
+
+
+\makeatletter
+\def\ps@pprintTitle{%
+	\let\@oddhead\@empty
+	\let\@evenhead\@empty
+	\def\@oddfoot{}%
+	\let\@evenfoot\@oddfoot}
+\makeatother
+\begin{document}
+%	\maketitle
+\begin{frontmatter}
+	\title{The impact of highways on population redistribution: The role of land development restrictions}
+	\author[VU]{Or~Levkovich\corref{cor1}}
+	\ead{o.d.Levkovich@vu.nl}
+	\author[VU,TI]{Jan~Rouwendal}
+	\ead{j.rouwendal@vu.nl}
+	\author[VU,TI]{Jos~van~Ommeren}
+	\ead{jos.van.ommeren@vu.nl}
+	\cortext[cor1]{Corresponding author.}
+	\address[VU]{Department of Spatial Economics, VU University, De Boelelaan 1105, 1081 HV Amsterdam, The Netherlands.}
+	\address[TI]{Tinbergen Institute, Gustav Mahlerplein 117, 1082 MS Amsterdam, The Netherlands.}
+	
+	\begin{keyword}
+		highways, development restrictions, population redistribution, suburbanization, instrumental variables, endogenous interaction variables
+	\end{keyword}
+
+\begin{abstract}
+	We study the role of land development restrictions for the effects of highway expansion on the spatial distribution of population for the Netherlands. 
+	Introducing an IV approach to address multiple endogenous interaction variables, our findings show that new highways accelerated population growth in peripheral areas, but had no apparent effect in suburban municipalities, in line with the presence of development restrictions. Highway expansions caused a ‘leapfrog’ pattern, in which suburban growth skipped development-restricted areas and expanded into farther located peripheral areas.
+
+\end{abstract}
+\end{frontmatter}
+
+\section*{Acknowledgments} 	%% Review version
+	We would like to thank Eric Koomen, Hans Koster, Miquel-Angel Garcia-Lopez and the editor and two anonymous referees of the Journal of Economic Geography for their useful comments and advices. Financial support from ERC Advanced Grant OPTION (\#246969) is gratefully acknowledged. We would also like to thank Changjoo Kim and the audience of the paper presentation in the 63rd North American Regional Science Conference for a constructive discussion on the paper.
+
+
+\newpage	%% Review version
+\section[Introduction]{Introduction}
+	New highways transform the spatial structure of cities and regions by reducing the costs of commuting to employment centers and improving accessibility in peripheral areas. There is substantial evidence that highways induce suburbanization, reduce population densities in central cities and increase population levels and economic performance of peripheral areas \citep{Baum-Snow2007,Baum-Snow2007a,Chandra2000,Duranton2012b,Garcia-Lopez2015}. However, these predictions may change considerably where urban sprawl is bounded by land development restrictions, prevalent in many cities around the world. 
+	
+	Land development restrictions are often introduced to mitigate urban sprawl. The green belt surrounding London is a well-known example, but similar development restrictions exist in the surroundings of many other cities.\footnote{Notable examples include the Ontario and Ottawa green belts, the São Paolo Biosphere reserve and the Seoul green belt \citep{Jun2001}.} Our focus is on the Netherlands, where the protection of the inner part of the Randstad, a metropolitan area which contains the four largest cities, against urbanization (through the so-called ‘Green Heart’) is an important aspect of the planning system. In addition, buffer zones contiguous to these cities were introduced to ensure proximity to open space and prevent the merging of urbanized areas. 
+	
+	Not much is known about the effect of urban planning measures on the spatial distribution of the population. There is abundant evidence that land development restrictions increase house prices \citep{Glaeser2006,Kok2014}, and can impose limitations on employment growth \citep{Hsieh2017}. This implies that restrictions are relevant and that restrictions on land use in the vicinity of large cities induce people to reside further away. 
+	
+	Following the work of \citet{Baum-Snow2007} it is well known that highway construction was responsible for a substantial share of the suburbanization of US cities. Most of this suburbanization took place through gradual expansion of the urbanized area and increasing densification within the municipal boundaries \citep{Burchfield2006x}. In this paper, we examine how the growth of the highway network in the Netherlands interacted with land development restrictions to transform the spatial distribution of population. More specifically, we address the question whether land development restrictions resulted in different population growth rates than could otherwise be expected on the basis of the expanding highway network. 
+	
+	To determine the causal effect of highway network developments on suburbanization, Baum-Snow used an instrument based on historical plans for network development. Later studies have used similar historical instruments to study, for instance, the effect of highway networks on Chinese cities \citep{Baum-Snow2012}, on land conversion in Spain and on urban structure in Barcelona \citep{Garcia-Lopez2014,Garcia-Lopez2015}, on innovation in US regions \citep{Agrawal2016} and on employment levels in Italian cities \citep{Percoco2016}. % Using the Roman road network as an instrument, \citet{Garcia-Lopez2014} also find that development of new highways in Spain has resulted in large scale conversion of agricultural land to urban use in rural municipalities.
+	
+	We focus on a large scale expansion of the Dutch highway network in the 1960’s, and study its impact on municipal population growth during the decade that followed. We account for endogeneity issues by employing an instrumental variable approach using the 1821 road network. 	
+	We find that highways have contributed to population growth in peripheral municipalities, but not in suburbs or central cities. Development restrictions resulted in a ‘leapfrog’ of suburbanization over areas in which development is restricted, population growth primarily occurred in peripheral towns. We also find that the effect of highways on population growth is temporal, as highways seem to have limited effect on population growth more than ten years after the major expansion is completed.
+	
+	In our empirical strategy, we pay special attention to the treatment of endogenous interaction variables. We use an innovative econometric approach in which we use a single instrument and estimate a single first-stage regression to address multiple interaction terms between an endogenous and exogenous variables. Initially suggested by \citet{Balli2013}, we further develop the single first-stage approach and formally show that when the exogenous interaction variable is a categorical variable (which splits the sample into exclusive subsamples), it produces more efficient results than the commonly-applied multiple first-stage approach, under certain testable conditions.	
+	Furthermore, we will point out that this approach is biased, in our context at least, due to weak instruments. 
+	
+	The paper is organized as follows. Section 2 provides a theoretical background. Section 3 discusses important aspects of Dutch land use planning and road network development. Section 4 describes the data. Section 5 describes our methodological approach. Section 6 includes the estimation results. Section 7 includes additional sensitivity analysis and examines long-term effects. Section 8 concludes.
+	
+\section{Theoretical background}	
+	According to the monocentric model, road infrastructure has a positive effect on city size and suburbanization \citep{Alonso1964,Muth1969,Mills1967a}. In the closed city version of the model, the rent gradient flattens with a decrease in transportation costs, land in the center becomes less expensive and the city expands through larger average lot sizes. The open city version of the model also predicts a flatter rent gradient, and a larger population.\footnote{The \citet{Roback1982} model suggests a positive effect of lower local transportation costs on employment on top of that. \citet{Glaeser2004} argued that reduction in commuting costs, which accompanied the widespread use of car transport, is the most important driver of suburbanization. This argument was also affirmed by others, notably by \citet{Burchfield2006x}.}
+	
+	\citet{Anas1979} and \citet{Baum-Snow2007a} considered an extension of the monocentric model by considering the impact of radial highways which reduce transport costs. The result is a star-shaped city where each of the ‘fingers’ grows along a highway. \citet{Baum-Snow2007} provided empirical evidence that highways caused suburbanization, as predicted by this model. Later studies considered the impact of highways on the growth of population and employment in metropolitan areas \Citep{Duranton2012b}, as well as on increasing economic performance in peripheral areas \citep{Banerjee2012,Chandra2000,Michaels2008}.
+	
+	The empirical analysis of this paper is also guided by the monocentric model. We assume a \textit{closed}-city with a homogeneous labor force. For simplicity, we consider a one-dimensional setup. Space is divided into a central area, close to the CBD; a suburban area, further from the CBD, and a peripheral area at a still greater distance from the CBD. We distinguish between two periods. In the first period, the city covers the central area and part of the suburban area. In the second period, the city expands due to the construction of a highway and population density decreases in the central area. To investigate the implications of spatial planning, we also consider the consequences of the construction of a highway in the presence of an restricted area where residential development is restricted. In the first period, the green belt is located outside the urban area, and the restriction on residential land use is not binding. Due to an expansion of the highway network, which will be shown to increase the city size, the restriction will become binding.
+	
+	Workers derive utility $U$ from land $L$ and a composite consumption good $C$. Hence, $U=U(C,L)$. Given linear transportation costs, the budget restriction is $I=C+r(x)L + tx$, where $I$ denotes income, $r(x)$ the land rent at location $x$, and $t$ commuting cost per unit of distance.
+	Workers choose the consumption of the composite good and land by maximizing their utility subject to the budget constraint. In equilibrium, they are indifferent between all locations in the city. It is well known that in this setting, consumption of land increases and population density decreases with distance x from CBD (see \citet{Glaeser2008b,Brueckner1987} for elaboration).\footnote{Extensions of the model also substitute the consumption of land with the consumption of housing \citep{Muth1969,Brueckner1987,Glaeser2008b}. In this setting, urban density is introduced as the equilibrium outcome of the worker's utility maximizing choice of residential location and housing consumption, and the profit-maximizing firm's choice of building capital-land ratio (or height) in each urban location.}  
+	
+	Figure \ref{ch3.fig:1} illustrates the population density in the urban area during the two periods, using a numerical
+	Analysis. The border of the city is determined as the location $\bar{x}$ where the residential rent is equal to the agricultural rent. The model is discussed in \ref{appa0}. 	
+	
+	In the first situation (the $S^{1}$ curve), no development restrictions exist and residents are allowed to reside in any location. In the second situation, the highway is introduced. We  model this as a decrease in transportation cost. It is well known (see e.g. \citet{Brueckner1987}) that this leads to a decrease in land prices close to the CBD and an increase at the outskirts of the city, which causes an expansion in the urban area.
+	Curve $S^{2}$ pictures the corresponding changes in density. 
+		
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{Illustration of the theoretical framework}
+		\includegraphics[width=\linewidth]{fig/fig1_fix.png}\label{ch3.fig:1}
+		% \floatfoot{Notes: (1) Density functions are given by $S(x) =  ln((1-\beta)^{\frac{1}{\beta}}\alpha^{\frac{1}{\beta}}) - \frac{1}{\beta}ln(\bar{U} - I + tx)$, which follows the first order conditions from optimizing the worker's utility. (2) We use $\alpha = 0.5$, and$\,\, \beta = 0.5$.}	
+	\end{figure}
+	
+	In the third situation we consider the effect of the same highway when there is a green belt surrounding the original built-up area. This implies that locations in distance interval of $(x^u-x^l)$ such that $0 < x^l < x^u$ cannot be used for residential use of the inhabitants of the city. 
+	
+	Curve  $S^{3}$ shows the resulting density function. Two effects occur: due to the green belt there is a further expansion of the city, and the decreasing impact of the highway on population density close to the CBD is now much weaker. Hence, according to the model, the impact of highways interacts with that of spatial planning. Finally, we consider in the fourth situation the effect of exogenous population growth. The standard result, that the density gradient shifts upwards, is also obtained in the presence of a green belt (curve $S^{4}$). 
+		
+	% In summary, the introduction of new highways pushes the boundary of the urban area, reduces commuting costs and decreases density close to the CBD, but increases density in the edges of the urban area. The introduction of development restrictions interferes with these effects in several main mechanisms. First, it increases density in the whole urban area (except in the restricted area), which may offset or even reverse the effect of highways close to the center, but enhances the effects on the edge of the city and in the agricultural areas immediately adjacent to the urban edge. Second, development restrictions complements the effect of highways on the urban boundary, and shift it outwards further. The combination of these two effects necessarily results in a larger urban area. 
+	A comparison between the predictions of the model when development restrictions are present and a standard model where restrictions are absent involves the location in which the density does not change given a reduction in commuting costs. In the standard closed city model, a reduction in transportation costs causes a counter-clockwise rotation of the density curves, and therefore there exists a \textit{single} location ($\hat{x}_1$ in Figure \ref{ch3.fig:1}) where population density does not change. When development restrictions are introduced, and given the assumption that these restrictions do not require that people would move out of their homes, this single location shifts closer to the CBD ($\hat{x}_2$ in Figure \ref{ch3.fig:1}). This implies that when development restrictions are present, the location where new highways do not affect population density gets closer to the CBD, all else equal, and does not overlap with the restricted area. Our empirical analysis focuses on The Netherlands, where central and suburban municipalities are often enclosed by a buffer zone, which restricted urban sprawl within the zone. Given our theoretical framework, it follows that highway extensions do not necessarily induce a change in population density in these two types of municipalities, whereas the standard model predicts a decreasing effect for central cities and an increasing effect for suburbs. 
+	
+	
+\section[Spatial planning in the Netherlands]{Spatial planning and transportation development in the Netherlands}
+\subsection{Land development restrictions}
+	The origins of Dutch land use planning date back to the early 20th century when the Housing Law (1901) obliged cities to make a plan for large scale extensions of their residential areas. Areas without such plan could not be developed, at least not on a large scale. However, the planning system was universally implemented after World War II. During the 1950’s it became clear to policy makers that the population should be expected to continue to grow in the next decades and that this would have substantial consequences for land use. In line with prevalent ideas about government intervention in the economic system, it was thought that land use planning could contribute to an orderly development of national land use that would increase social welfare.\footnote{Spatial planning in the Netherlands is guided by a series of white papers, or Reports on Physical Planning (Nota Ruimtelijke Ordening, released in 1960, 1966, 1974-1977, 1988, and 2001).}
+	
+	The 1958 document on ‘The Development of the Western Part of the Country’ (\emph{Rijksdienst voor het Nationale Plan}, 1958) presents a vision on spatial planning of the Randstad that would remain dominant until the 1980s. “If one allows the current development to proceed, one of the main advantages of the Dutch Randstad in comparison to foreign conurbations will be forfeited: the spatially separately located cities of transparent size”. This vision was translated into several main policy measures. First, the center of the urbanized Randstad, the ‘Green Heart’, was preserved for agricultural use \citep{Koomen2008,Koomen2013}. Second, concerns that expansion of large urban areas would result in a formation of one large urban agglomeration were addressed by assignment of ‘buffer zones’, areas surrounding large cities. Spatial delineation of the zones appeared later in 1966 \citep{Dieleman1999a,Koomen2008}. Third, nature preservation was also strictly imposed, and while urban expansion necessities often overruled other restrictions (and were even extended to land reclaimed from the sea), the boundaries of areas defined as nature reserves hardly changed since the 1960’s to the present day.\footnote{Correlation between the share of area covered by nature in 1960 and in 1980 is $\rho=0.911$.}
+	Fourth, the central government was also involved in directing urban growth. Areas outside of main cities were defined as growth cities (\emph{‘Groeikernen’}), which were destined to absorb suburbanization. The definition of the growth cities and the implementation of the new policy was not fully realized before the late 1970s and early 1980s (following the Third Report on Physical planning, 1974--1977),\footnote{The designation of the growth cities (\emph{'groeikernen'}) was soon followed by designation of four growth cities (\emph{'groeisteden'}), existing cities located far from population concentration which were destined to absorb additional urban population growth. We do not make a distinction between groeikernen and groeisteden.} and was eventually discontinued by the early 1990’s when new national policy redirected urban development back to areas in vicinity to traditional city centers \citep{Geurs2006a,Jobse1991,Ostendorf1996}.\footnote{This was directed by the Fourth Report on Physical Planning in the Netherlands (\emph{Vierde Nota Ruimtelijke Ordening}, 1989), and particularly its annex report in 1991 (\emph{Vierde Nota Ruimtelijke Ordening Extra}, abbreviated as ‘VINEX’).}	
+	
+
+\subsection{Urban and road network development}	
+	Intercity passenger and freight transportation was historically based on railway and inland waterways. The first railway line was opened in 1839, and the railway network reached its peak length in 1930 \citep{Koopmans2012}. Motorized transport was quickly adopted after the introduction of automobiles in 1896 \citep{Smaal2012}. By 1930 there were approximately 68,000 registered private auto-mobiles, 30,000 motorcycles and 44,000 busses and trucks \citep{Veenendaal1996}. The main roads were then built based on a plan which was first laid out in 1821 (see \ref{appa}). In 1927 the government laid out its first official road network plan (\emph{'Rijkswegenplan'}).\footnote{This plan was revised several additional times in the following decades, to consider updated projections of traffic and to specify different road capacity types.} The first highway (between The Hague and Utrecht) was opened in 1937. By 1960 the network reached a length of 351 km \citep{Smaal2012}. During the same period, between 1946 and 1960, car ownership grew from 5 cars per 1,000 people, to 45.8 cars per 1,000 people \citep{Ligtermoet1990}, still only a fraction of contemporary car ownership rates in the United States.\footnote{By comparison, in 1960 there were 411 cars per 1,000 people in the United States.}
+	
+	Following growth in traffic, the government decided in 1961 to expand the network, and to construct additional 1,200 kilometers of highway before 1975. This goal was reached in 1972 \citep{Ligtermoet1990}. Car ownership rates also grew rapidly to 218 cars per 1,000 people, approximately half of US car ownership rates at the time. After the completion of the expansion plan, funds for road investments were exhausted. Around the same time, increasing attention to environmental impacts and congestion effects of car travel, and the breaking of the oil crisis in 1973 (after which driving on Sunday was prohibited for two months), led to a new government policy which aimed to decrease the dependency in commuting by car \citep{Ligtermoet1990,Schwanen2004,Smaal2012}. The expansion of the highway network during the 1960s is now regarded as an outdated policy. The development of the highway network continued at a slower pace after the 1970s,\footnote{See highway network expansion maps in \ref{appa}.} and it was characterized by the debate between the demand for better roads and environmental preservation and limitation of energy usage. 
+	
+\subsection{Long-run effects on traffic congestion}
+	Empirical evidence shows that highway infrastructure development results in an approximately proportional increase in traffic volumes, and it does not relieve traffic congestion in the long run \citep{Duranton2011}. This is also supported by congestion indicators from the Netherlands, as the usage of motorized vehicles (and subsequently traffic congestion) has increased along with the development of the highway network.\footnote{Traffic congestion index value in the Netherlands (1986 =100) has increased from 41 to 87 between 1967 (the first year of measurement) and 1980 (Statistics Netherlands 2016), and passenger-kilometers have increased from 15.9 billion km in 1960 to 107.1 billion km in 1980 (Statistics Netherlands, 2016).}
+	Therefore, although the highway network expansion may have locally relieved congestion in the short term, traffic volumes subsequently adjusted in the long term and increased proportionally with highway capacity.\footnote{The expansion of the highway network continued during the 1980's, focusing mostly on increasing the number of lanes and broadening existing infrastructure. Traffic congestion index national levels and passenger-kilometres travelled have continued to grow steadily also during the 1980’s and 1990’s, reaching an traffic congestion index value of 144 (1986 =100) and 146.8 billion km in 1995 (statistics Netherlands, 2016).} In light of that, our model focuses on the expansion of infrastructure and its associated decrease in commuting costs, and does not directly include congestion effects. We assume that once a certain highway segment was constructed, its long-term levels of congestion, and implied commuting costs, have remained relatively unchanged. 
+				 
+
+\section{Data}
+	We estimate the effect of new highways on population growth distinguishing between (i) central cities (ii) suburban municipalities and (iii) peripheral municipalities. Growth of the highway network occurred primarily between 1961 and 1972. Hence, we will examine population growth just after this period, so between 1970 and 1980. 
+	The choice of the exact time period was made to maintain consistency with highway variables, which are only available for ten years intervals (1960, 1970 and 1980). As a sensitivity analysis we also analyze population growth between 1980 and 1990 to examine the long-term effects. 
+	
+	We make use of historical data on the extent of transportation networks and population, calculated for 811 municipalities for 1980 municipal boundaries (using 250 square meter cells). Table \ref{ch3.tbl:1} provides a descriptive summary of the variables used in the analysis. 
+	
+	% Table 1
+	\input{tbl/tbl1}
+	
+	Our main dependent variable is population growth between 1970--1980 per municipality, which was obtained from Statistics Netherlands. On average, population grew by 22 percent between 1970 and 1980. Data on the 1960, 1970 and 1980 highway network was obtained through the Historisch NWB (\emph{Nationaal Wegenbestand}).\footnote{Highways were identified based on road type indication of dual motorway or highway, or whether the road is maintained by the central government. Both result in similar figures of highway network length, as reported in \citet{Ligtermoet1990} and Statistics Netherlands (2015).} Information regarding the main roads in 1821 was available through the ministry of infrastructure and environment (see \ref{appa}). For 1970, road data was used to create two variables that measure highway extent: highway density and rays. The average distance to highway access point was also used as an alternative measure of highway extent. The results of this measure produce similar coefficients, but are less trustworthy, as shown by a low first-stage Kleibergen-Paap F-test score which implies a weak instrument. Highway access points are frequent in the Netherlands, and in 1970 the highway network had approximately 340 access points, which corresponds with an access point for every 2.8 highway kilometers on average.
+	
+	Highway density is calculated as the ratio of the meter length of highways in a municipality and the municipal area (in square kilometer). We calculate highway rays following \citet{Baum-Snow2007} and \citet{Baum-Snow2012}. We define a 5 kilometers radius around each municipal centroids (which are defined as the population weighted center of a municipality), irrespective of municipal boundaries, and count the number of times highways cross this radius.\footnote{Radius of 5 kilometers was determined based on common municipality areas. A sensitivity analysis included using rays based on 3 kilometers radius, which have shown little differences in coefficient values and statistical significance of the estimators.} Table \ref{ch3.tbl:2} provides a descriptive summary of both highway extent variables. Our measures of highway extent complement each other. The use of highway rays to study the effect of highways on suburbanization is common in literature. However, highway density may better reflect highway accessibility in rural areas (particularly if access points are frequently present), or in municipalities with large areas or irregular boundary shapes, in which highways cross the municipal area but do not directly reach population centers.\footnote{Peripheral municipalities often include several small villages, and therefore can have multiple town centers.} We use both highway extent measures in order to reconcile such possible differences in measurements. We define central cities as cities with a population exceeding 50,000 people in 1930.\footnote{\ref{appc.1} includes a sensitivity analysis with population thresholds of 30,000--70,000 inhabitants.} Since municipalities vary in area, we also restricted the definition of central city to municipalities which had population density level of at least 500 inhabitants per square kilometers in 1930.\footnote{Despite having a population of approximately 60,000 inhabitants in 1930, the municipality of Apeldoorn was not included as a central city. Apeldoorn has the largest municipal territory in the Netherlands with 339 square kilometers of municipal area, of which 81\% is open space. With a population density of 176 people per square km in 1930, it is rural in character.}		
+	Suburban municipalities are defined as municipalities directly adjacent to central cities, or located within five kilometers from the centroid of a central city.\footnote{We also tested suburb definitions of municipalities located 10, 15 and 20 kilometers from the centroid of central cities. Highway extent coefficients maintain relatively similar values and their statistical significance level, with the exception of rays under the 20 kilometer radius suburbs scenario, where the effect becomes statistically insignificant.} This definition is in line with the idea that these municipalities are most likely to experience population expansion following improvement in highways. All other municipalities are defined as peripheral municipalities. In total, we define 20 central cities, 133 suburban municipalities and 658 peripheral municipalities (Figure \ref{ch3.fig:2}).
+	The use of historical population levels to define municipality types is also used in order to relief suspicion of endogeneity in the assignment of central cities, suburbs and peripheral municipalities.
+		
+	Suburban municipalities face development restrictions when they are located within the Green Heart or within buffer zones. Buffer zones cover 12.9 percent of suburban municipalities’ area, compared to 7.9 and 2.6 percent of central cities and peripheral municipality’s area. The green heart covers 17.4 percent of suburban municipalities’ area, compared to 4.6 and 13.8 percent of central cities and peripheral municipalities’ area.\footnote{The correlation between the share of municipal area included within the buffer zones and the suburb municipalities dummy is 0.209. The correlation between the share of area included within the Green heart and suburb municipalities dummy is 0.355.}
+
+	Indexes of land regulation restrictions are not available in the Netherlands, in contrast with the US. However, for the Netherlands we observe three variables which explicitly measure land development restrictions at the municipal level - buffer zones, (preserved) nature coverage and the share of area included within the 'green heart'. Spatial planning and land development restriction data, including the boundary of the green heart and the buffer zones, was obtained from \citet{Koomen2008}. 
+	
+	% Table 2
+	\input{tbl/tbl2}
+		
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{Municipalities (1980)}
+		\includegraphics[width=0.73\linewidth]{fig/Fig_2_new_color}\label{ch3.fig:2}
+	\end{figure}
+	
+	We also use information on rail stations as a control variable. Because railway length reached its maximum in 1930 it is possible that the presence of stations in 1930 interfered with the effects of new highways. Data on historical railway stations was obtained from \citet{Koopmans2012}. Data on nature coverage in 1960 was available from Alterra \citep{Kramer2005}. 	
+
+	The Netherlands is characterized by abundance of water, which often obstructed land development. During the 20\textsuperscript{th} century large land reclamation projects were carried out in the Netherlands, and such lands were often designated for development purposes. To control for population growth in land reclaimed from water we include the share of municipal area which was reclaimed between 1930-1980, which was calculated by comparing water line boundaries between 1930 and 1980.\footnote{The 1960--1970 and 1980--1990 analyses include the same variables, adjusted respectively to 1970 and 1990 levels.} 
+	
+	For additional control we also include the share of municipal area covered by each of the fourteen soil types present in the Netherlands. The type of Soil present in a municipality can serve as an attractive amenity (dunes, for instance), and it also likely affects development costs. Therefore, controlling for it improves our identification of the main effect.
+	
+	To guide urban sprawl away from areas designated to remain in natural or agricultural use, the Dutch government defined “growth cities” in which urban development was concentrated. The growth cities lie within eighteen 1980 municipalities, of which 2 are central cities (Breda, Groningen), 6 are suburban municipalities and 10 are peripheral municipalities. The delineation of the growth cities was implemented in the late 1970’s. 
+	
+
+\section{Methodology}
+\subsection{Main specification: Population growth (1970--1980)}
+	Consistent with the theoretical static model, we distinguish between three types of municipalities: central cities, suburban municipalities, and peripheral municipalities. $P_i$ indicates a peripheral municipality, $S_i$ indicates a suburban municipality, and $C_i$ indicates a central city. $H_i$ defines highway extent, highway rays or highway density (in log, 1970 levels). 
+	
+	In period one, there is no highway, so population in municipality $i$ is equal to a constant $A_{1,i}$:
+	\begin{equation}\label{ch3.eq:1a}
+		\begin{split}
+			\ln(Pop_{1,i}) =& A_{1,i}, \,\,\,\, A_{1,i} > 0 .
+		\end{split}
+	\end{equation}
+	
+	In period two, highways are constructed in some municipalities, where the effects on population depend on the type of municipality, and population growth varies with a random factor:	
+	\begin{equation}\label{ch3.eq:1b}
+		\begin{split}
+			\ln(Pop_{2,i}) =& A_{1,i} + \beta_{HP}H_{i}P_{i} + \beta_{HS}H_{i}S_{i} + \beta_{HC}H_{i}C_{i} + \epsilon_i,
+		\end{split}
+	\end{equation}
+	Here, $H_i$ is interacted with $P_i, S_i$ and $C_i$ to allow distinct effects of highways by type of municipality, and $\beta$ measures the respective effect of the highway extension. $\epsilon_i$ is a random error. In case of exogenous population growth for different municipality types, we obtain:			
+	\begin{equation}\label{ch3.eq:1c}
+	\begin{split}
+	\ln(Pop_{2,i}) =& A_{1,i} + \beta_0+\beta_{S}S_i + \beta_{C}C_i + \beta_{HP}H_{i}P_{i} + \beta_{HS}H_{i}S_{i} + \beta_{HC}H_{i}C_{i} \\
+	+ &\sum_{k}\alpha_{k} X_{i,k} + \epsilon_i ,
+	\end{split}
+	\end{equation}
+	where $S_i, C_i$ capture growth which is associated with suburbs and central cities, respectively, and $X_{i,k}$ are $k$ growth determinants, as will be specified later in this section. By subtracting (\ref{ch3.eq:1a}) from (\ref{ch3.eq:1c}) we obtain our empirical model:	
+	\begin{equation}\label{ch3.eq:1}
+	\begin{split}
+		\Delta\ln(Pop_i) =& \beta_0+\beta_{S}S_i + \beta_{C}C_i + \beta_{HP}H_{i}P_{i} + \beta_{HS}H_{i}S_{i} + \beta_{HC}H_{i}C_{i} \\
+		+ &\sum_{k}\alpha_{k} X_{i,k} + \epsilon_i ,
+	\end{split}
+	\end{equation}	
+	where $\Delta\ln(Pop_i)$ is the change in log population in municipality $i$ between 1970--1980. Growth determinants, and therefore control variables, include the number of rail stations and population level, both in 1930, nature coverage in 1960, population level in 1960, the municipality share within a buffer zone, the municipality share within the green heart, distance to nearest central city,\footnote{We also experimented with including the population (1930) of the nearest central city (in logarithm) as an additional control variable. Adding this variable results in similar coefficient values, signs and statistical significance for most estimated analyses, but it often results in marginally lower Kleibergen-Paap values, and is therefore excluded from our main analysis.} share of reclaimed area and share of each of the fourteen soil types present in the Netherlands. 
+	 
+	 We will also estimate another specification in which we restrict $\beta_{C}=\beta_{S}$ and $\beta_{HC}=\beta_{HS}$. This restricted specification allows us to study the effects of highways in urban agglomerations as a whole, consisting of central cities and suburbs. 
+	
+	We address the concern that the development of the highway network is most likely endogenous, as its construction is likely influenced by travel demand. We use an instrumental approach using the 1821 road network (both number of rays and road density) as instruments (see also \citet{Baum-Snow2007,Baum-Snow2007a,Baum-Snow2012,Duranton2012b,Garcia-Lopez2012,Garcia-Lopez2015,Pasidis2015}.
+	The road network system of 1821 was created before the industrial revolution and a century of rail-transport dependency, and thus unlikely to have been affected by the changes in spatial structure that resulted from improvements in transportation technologies in the following century.\footnote{This argument suggests that rail infrastructure may also be used as a valid instrument for the highway network, as planned highway trajectories often followed existing historic railway lines, particularly where bridge crossing were already present. However, due to its close association with later population growth, it can be argued that rail accessibility does not satisfy the exclusion restriction.}
+	
+	In the empirical analysis we do not aim to distinguish between the effect on population 'growth' or 'redistribution'. Given the non-restrictive assumption that national population changes (due to immigration, births or deaths) are exogenous with respect to highways, all 'growth' effects should be interpreted as population redistribution.
+
+	Many spatial development restrictions and land use policies in the 1960s and 1970s are also suspected to be endogenous. This is unlikely the case for buffer zones, because their definition relies on their exogenous location in immediate adjacency to traditional urban centers. Hence, in our main analysis we consider buffer zone share as exogenous. 
+	Nevertheless, in a sensitivity analysis we consider them as endogenously determined, employing an (artificial) buffer area of fifteen kilometers around central cities as an instrument. We find the results unchanged for the impact of highways.
+	We also take into account that the effect of highways may differ for areas within and outside buffer zones, and use additional interaction terms between highways, buffer zones and municipality types.	
+	
+	Our sample includes eighteen growth cities that were designated late during our study period (1977), and are likely to be dependent on the development of highway accessibility at the time. We therefore do not control for the presence of growth cities. Our results are also robust when these eighteen municipalities are excluded from the analysis.
+
+\subsection{Endogeneity issues of the interaction terms}
+	The above specification includes interactions between highways extent variables and three municipality types: central cities, suburbs and peripheral municipalities. It follows that the three interaction terms $H_{i}P_{i}, H_{i}S_{i}, H_{i}C_{i}$ may be considered as endogenous. In the context of an endogenous variable with interactions, several estimation procedures are then possible.
+	
+	The standard approach, which we will refer to as the multiple first-stage approach, is to estimate a separate first-stage regression for each of the endogenous interaction variables.\footnote{See \citet{Wooldridge2002}, page 122.} A second approach, which we will show to be more efficient, is to estimate a single first-stage to predict $\hat{H_i}$ using instruments, denoted by $Z_{1,i}, Z_{2,i}$, and to use this predicted variable interacted with the dummies for central cities, suburbs and peripheral municipalities in the second stage (as suggested by Balli and Sorenson, 2013). Hence, one estimates the following first-stage equation:	
+	\begin{equation}\label{ch3.eq:2}
+		\begin{split}
+		H_{i}=\delta_0 + \delta_{S}S_{i} + \delta_{C}C_{i} + \delta_{Z1}Z_{1,i} + \delta_{Z2}Z_{2,i} + \sum_{k}\gamma_{k} X_{i,k} + u_i ,
+		\end{split}		 	
+	\end{equation}
+	where $\delta$ and $\gamma_k$ are coefficients to be estimated. Given the first-stage estimates of the coefficients in (\ref{ch3.eq:2}), $\hat{H_i}$ is predicted, and is then interacted with $P_i, S_i$ and $C_i$ respectively. The resulting interaction terms ($\widehat{H_{i}}P_i,\widehat{H_{i}}S_i,\widehat{H_{i}}C_i$) are then used in a second stage. Robust standard errors in the second stage can be calculated following \citet{Angrist2008}.
+	%\footnote{We also conducted an additional bootstrap sampling analysis with 2,500 replicates. These results are in line with the results presented here and are available upon request.}	
+	The single first-stage approach is further explained and elaborated in \ref{appb}.
+		
+	% While both the multiple and single-first stage approaches assume that endogeneity in $H_i$ results in endogeneity of the interaction terms, 
+	We also examine a third approach, which treats the interaction terms as exogenous. \citet{Bun2014} show that an interaction term between endogenous and exogenous variables may be treated as exogenous if the conditional expectation of the endogenous variable and the error term ($H_{i}u_i$) does not depend on the exogenous regressor with which the endogenous variable is interacted ($P_i,S_i,C_i$).\footnote{Following \citet{Bun2014}, we also use Wald test to test the hypothesis of consistency of OLS estimators, in which all variables are considered exogenous. This hypothesis is rejected.} The validity of this assumption can be tested using a standard Hausman test \citep{Hausman1978s}, which compares the results of the model where the interaction term is treated as endogenous with the model in which it is treated as exogenous.\footnote{An extended version also tests the presence of weak instruments \citep{Bun2014,Hahn2011}.} 
+	
+	In this paper we will apply all three approaches. It appears that these approaches result in similar coefficient values. The single first-stage approach produces the smallest standard errors and the highest first stage Kleibergen-Paap F-test value, and is therefore preferred. 
+	
+\subsection{Highway effects around restricted areas - Testing the leapfrog hypothesis}\label{sec:method.belt}
+	We extend our analysis to investigate whether highway effects differ when development restriction are present in nearby areas. 
+	
+	Here we regroup the municipalities to five mutually distinct groups, as follows (see map in Figure \ref{ch3.fig:3}): (1) Peripheral municipalities located in a defined distance belt around central cities, \emph{and} just-outside restricted areas (buffer zones), (2) peripheral municipalities located in a defined distance belt around central cities, but \emph{not} located near restricted areas, (3) municipalities in the remote periphery, (4) urban agglomerations, consisting of both central cities and suburbs (as in our main definition), and (5) Restricted areas, or peripheral municipalities which are predominantly covered by buffer zones. In defining the groups we use buffer zones as a proxy for restricted areas, as they form the most binding development restriction during the examined period. We then estimate the following model: 	
+	\begin{equation}\label{ch3.eq:3}
+		\Delta\ln(Pop_i) = \beta_0+ \sum_{r}(\beta_{r}R_{i,r} + \beta_{Hr}H_{i}R_{i,r}) + \sum_{k}\alpha_{k} X_{i,k} + \epsilon_i ,
+	\end{equation}
+	where $R_{i,r}$	is a dummy indicating if municipality $i$ is located in area $r$ (near-periphery around central cities and restricted areas, near-periphery around central cities, remote periphery, Urban agglomeration or restricted area). All other control variables are identical to those included in Model (\ref{ch3.eq:1}).	
+	
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{Municipalities (1980)}
+		\includegraphics[width=0.73\linewidth]{fig/Fig_3}\label{ch3.fig:3}
+	\end{figure}
+
+	The purpose of this regrouping of municipalities is to allow us to break down the effect of highways in peripheral areas, and to observe whether it is significantly different for municipalities which are 'separated' by restricted areas from their nearest corresponding central cities. Our focus lies therefore on the two groups of near-periphery municipalities, which are comparable in distance to central cities but not in their proximity to restricted areas.\footnote{In our main analysis we use a distance belt of 10 kilometers, which is chosen by visual inspection of the map and examination of the assignment of municipalities to each group. However, we also experienced with municipality groups based on distance belts of 5, 7.5, 12.5, 15 and 20 kilometers from both central cities and restricted areas (buffer zones).} The two areas in focus serve as 'treatment' and 'control' areas, where 'treated' areas are municipalities which are also located near buffer zones.\footnote{Since buffer zones are delineated around the largest central cities, it may be that peripheral municipalities in their proximity would experience stronger growth rates as they potentially subject to faster suburbanization. We address this by adding an additional control for population (1930) in nearest central city. Results remain robust and maintain similar coefficient values, signs and statistical significance levels, but are not reported here due to relatively lower first-stage Kleibergen-Paap values.}
+	If development restrictions cause population to leapfrog to peripheral municipalities, we expect to find stronger highway effects in towns around restricted areas, all else equal. 
+	% If development restrictions interferes with the effects of highways, we expect to find evidence of 'leapfrogging', and stronger highway effects on population growth in towns located close to restricted areas, compared with towns not located close to restricted areas (controlling for location within a defined distance from central city). 
+
+		
+\subsection{Peripheral municipalities subsample}		
+	% 	The analysis of the effects of highways on population size in peripheral areas has been studied using a different identification strategy, according to which the connection to a highway network of a peripheral town is regarded as an unintended consequence of its location between larger urban areas. Therefore, highway assignment was considered as random within the set of possible trajectories that connect the largest cities \citep{Banerjee2012,Chandra2000,Fajgelbaum2014,Michaels2008}.	
+	The literature on the effects of highways in peripheral regions commonly treats the assignment of highways as exogenous, as it is argued that highway assignment depends on the exogenous location between two larger urban areas that are connected with a highway.\footnote{See, for example, \citet{Chandra2000,Fajgelbaum2014,Michaels2008}.} Plausibly, this exogeneity assumption does not hold in our analysis. Due to the relatively small spatial scale, it is likely that highway assignment in peripheral areas is endogenous. Trajectories of planned highways may have been directed to pass through faster growing peripheral towns, where the spatial scale is sufficiently small, such network planning decisions can be done without imposing costly road bypasses. To study the effects of highways in peripheral municipalities we estimate (\ref{ch3.eq:1}) on a restricted subsample of the peripheral municipalities. We will instrument highway extent as in (\ref{eq:iv2}). %Furthermore, we will compare the results with OLS estimation, assuming exogenous assignment of highways in the periphery.
+
+%	\begin{equation}\label{ch3.eq:3}
+%		\Delta\ln(Pop_i) = \beta_0+ \beta_{HP}H_{i}P_{i} +\sum_{k}\alpha_{k} X_{i,k}P_{i} + \epsilon_i.
+%	\end{equation}	
+
+\section{Estimation results}
+\subsection{Main results: Population growth (1970--1980)}
+	To apply the single first-stage approach, we first test whether the restrictions imposed are valid using a standard F-test. The results of the hypothesis test of these restrictions show that for both highway measures we cannot reject the null hypothesis, which indicates that the single first stage approach is valid.\footnote{F-test value for rays is $1.05$, corresponding with p-value of $0.39$, and the F-test value for density is $0.15$, corresponding with p-value exceeding $0.99$. The F-test has 10 degrees of freedom. We restrict the coefficient of each of the two highway instruments ($\delta_Z$) and eight control variables ($\gamma_k$) to be equal between municipality types.}
+	
+	The estimation results of model (\ref{ch3.eq:1}) using the single first-stage approach, are presented in Table \ref{ch3.tbl:3}.\footnote{First stage estimation results show a positive and statistically significant effect of the instrument on highway extent in the 1970s, see Table \ref{appd:tbl:1}.} 
+	The results in columns 1 and 2 show that one highway ray increases municipal population growth by 5.1\%, and that an increase of one standard deviation of highway rays is equivalent to about 7\% increase in population growth. One percentage increase in highway density is expected to increase population growth by 0.055\%. This corresponds with an increase of approximately 12\% given one standard deviation increase in highway density.\footnote{Highway rays and density can also be included together. However, due to relatively strong correlation between them, the estimated results have low statistical significance.} 
+	The effect of highways on population growth in central cities is negative and statistically significant at the 10\% level for highway density (but not for highway rays). One percentage increase in highway density is expected to decrease central city population growth by 0.049\%. The effect in suburban municipalities is negative and statistically insignificant.\footnote{Estimation results include heteroskedasticity-robust standard errors. We have also estimated the model using clustered standard errors for NUTS-3 regions clusters (there are 40 NUTS-3 regions in the Netherlands). The standard errors under NUTS-3 clustering remain relatively unchanged, and the results have maintained similar statistical significance levels.}
+	
+	The effects of buffer zone are negative and significant, and a municipality completely included within a buffer zone is expected to drop population growth by approximately 7-9\%. 
+	This confirms the findings of \citet{Geurs2006a,Koomen2008,Koomen2013} that the Dutch policy of open space preservation was effective in preventing urban sprawl in designated areas.
+% Table 3
+	\input{tbl/tbl3_n}
+	
+	The results of the restricted specification (columns 3 and 4), in which we assume an identical effect of highways for agglomerated urban areas (central cities and suburbs), also show positive effects of highways on peripheral population growth. The effect of increase in highway rays on population growth is estimated at 0.058\%. The effect of one percentage increase in highway density is essentially also the same, at 0.059\%. The results also show a significant negative effect of both highway rays and density on population in urban agglomerations (central cities and suburbs, combined) of  $-$0.07\% and $-$0.051\% respectively. 
+	
+	The result that highways have a positive effect on the peripheral municipalities, and a negative effect on central city and suburb population, largely confirms the findings of \citet{Baum-Snow2007,Baum-Snow2007a} and related papers. However, the absence of a statistically significant effect on population growth in suburban municipalities is not in line with previous findings. 
+	A possible explanation is the small spatial scale in the Netherlands. It is possible that municipalities adjacent to central cities do not experience a significant reduction in commuting costs following the construction of a new highway, and commuters from these municipalities still prefer local urban roads, or public urban transportation systems. Moreover, it may be that commuting costs remain relatively low in municipalities located further away from central cities, in that sense, the strong positive effect of highways found in peripheral municipalities could be interpreted as reflecting this suburbanization effect.\footnote{Twelve suburban municipalities are adjacent to two central cities. We have also considered a specification in which these suburban municipalities experience a double effect. % Namely, for these 12 municipalities we replace $S_i$ by $2S_i$. 
+	The results maintain very similar values, and as expected, the estimated effect of $H_{i}S_i$ becomes slightly smaller.} 	
+		
+	We estimate an additional specification of the model in which we consider buffer zone share to be endogenous. Here we instrument buffer zones using an 'artificial buffer' variable, defined by a dummy which indicates municipalities that are completely contained within a radius of 15km from the cities around which buffer zones were present (Amsterdam, Rotterdam, The Hague, Utrecht and Maastricht).\footnote{We also experimented with artificial buffers in ranges between 3-20 kilometers radius from central cities. A buffer of fifteen kilometers was chosen as it is in line with actual buffer zones ranges.} The estimation results (Table \ref{ch3.tbl:3}, columns 5-6) show that the effect of highways in peripheral municipalities remains robust when we consider buffer zones to be endogenous.\footnote{A standard Hausman test for the endogeneity of buffer zone share provides a value smaller than $0.25$, corresponding with a p-value exceeding $0.95$ which suggests that the exogeneity assumption is not rejected.} The effects of highways in central cities is negative and significant at the 10\% level for rays, but statistically insignificant for highway density. One highway ray is expected to decrease central city population growth by 3.8\%.
+	
+	% The difference between the implied effect of highways on population redistribution given the use of rays or density as highway extent results from the difference in their measuring highways. Highway density measures the extent of constructed highways within a municipality, and hence useful in assessing highway development extent. In contrast, highway rays serves as a cruder manner to assess highway accessibility, but it is more robust against irregular municipal boundaries and is suitable for measuring highway links. Therefore, and also since it is more commonly used in past literature, we regard the effect implied by highways rays as the preferred interpretation for the effect of highway extent on population redistribution.
+
+% \subsection{Endogeneity in the highways interaction terms}	
+\subsection{Highway effects around restricted areas - Testing the leapfrog hypothesis}
+	The results in Table \ref{ch3.tbl:3} show a significant positive effect of highways on population in peripheral municipalities, but not in the suburbs adjacent to central cities, where growth was most expected according to the monocentric model's predictions. 
+	We interpret this effect as a result of leapfrogging pattern, which follows development restrictions around central cities. To further investigate this, we extend our analysis and use an additional municipality grouping (see Section \ref{sec:method.belt}), which allows observing the effect of highways where restricted areas are present nearby. The results in Table \ref{ch3.tbl:belts} show a positive and significant effect of highways in both groups of near-periphery municipalities, but a stronger effect in municipalities located \textit{just-outside} restricted areas.\footnote{We use a distance belt of 10 kilometers around central cities and buffer zones. Results are robust and maintain similar interaction coefficients signs and magnitude for ranges between 7.5 and 12.5 kilometers, but to a lesser extent below or above this range.} 
+	The effect of highway rays in near-peripheral towns around restricted areas is 0.086\%, compared with 0.054\% not around restricted areas. For highway density, the effects are respectively 0.089\% and 0.059\%. Nevertheless, t-test results show that the effects are not statistically significantly different from each other at the 5\% level, for both highway rays and density.
+
+	% Table (belts)
+	\input{tbl/tbl_belts}
+	
+	Similar to the findings in Table \ref{ch3.tbl:3}, the effects of highways in urban agglomerations is negative and significant at approximately $-$0.072\% for highway rays and $-$0.050\% for highway density.
+	
+	These findings suggest that municipalities in the near periphery experienced stronger highway effects on population growth if they were located close to areas where development is restricted. Despite statistical similarity, the substantial difference in magnitude between the effects in both peripheral municipalities groups near central cities is still interpreted as indicating the presence of a leapfrog pattern. 	
+	
+	
+\subsection{Peripheral municipalities subsample}
+	The results using a subsample of peripheral municipalities are presented in \ref{appc.2}, Table \ref{ch3.tbl:6}. They show similar effects as in Table \ref{ch3.tbl:3}. 	
+	Since the previous literature generally considers highways in peripheral areas as exogenous, we also estimate the restricted specification using OLS. The results show that the effects of highways become substantially smaller. The effect of an increase in one highway ray is about 1.28\%, and the effect of 1\% increase in highway density is about 0.0091\%, indicating a negative bias. This suggests that in contrast with previous assumptions for other countries, highway extent in peripheral areas in the Netherlands cannot be regarded as exogenous.\footnote{Excluding eighteen observations that refer to growth cities generates almost identical results.} 	
+		
+\section[Sensitivity analysis]{Sensitivity analysis and long-term effects}
+
+\subsection{Interactions with buffer zones}
+	Our main model specification tests the effects of highways for several municipality types, controlling for presence of buffer zones. It may also be that the effects of highways vary with the presence of buffer zones. To test this we extend our model by including an additional set of interaction variables between highway extent and buffer zones.\footnote{We focus here on buffer zone share as it is found to have a strong negative effect on population growth. The other type of regulation, the green heart, did not have any effect on population growth and is therefore a less interesting variable to explore.} 
+	First, we assume that buffer zone share is exogenous, and later we examine our results under an endogenous buffer zone share assumption. As before, our instrumental variable strategy follows the single first-stage approach to compute each of the three instruments (for the three endogenous variables - highway extent, buffer zone share and highways$*$buffer zone share). The instruments are first estimated using first-stage regressions, and then interacted in the second-stage with the three municipality type dummies.
+	
+	The results in Table \ref{ch3.tbl:intiv} (columns 1 and 2) show weakly significant effects of highways in buffer zones within peripheral and suburban municipalities. Highway density has a strong and significant positive effect of 0.35 within central city buffer zones. Note that this effect is estimated based on only 11 observations with non-zero buffer zone share, so is not reliable. 
+	Notably, the effect of highways in peripheral areas remains robust and maintains similar values (and significance levels) when highway and buffer zones interactions are included.
+% Table NEW - interaction with development restrictions.
+	\input{tbl/tbl_int_iv_n}	
+		
+	When the buffer zone share is considered endogenous (Table \ref{ch3.tbl:intiv}, columns 3 and 4), all estimated effects of highways within buffer zones become statistically insignificant. Nevertheless, the main effect of highways in peripheral municipalities remains robust. 
+	This implies that while buffer zones designation reduced population growth, there is no evidence that its presence had influenced the effect of highways. Namely, the effect of highways on population growth within each municipality types remained similar within and outside buffer zones.
+	
+\subsection{Addressing highway extensions between 1970--1980}\label{sec:measure.err}
+	Our model specifications aim to estimate the effect of highway extent in 1970 (or, stock of highways in a given period) on population redistribution between 1970--1980. However, measurement error in highway extent occurs since we only observe levels of municipal highway extent in decade intervals, and not annually. Hence, we exclude from the analysis highways which were constructed during the examined decade (between 1970--1980), and their possible effects on population growth.\footnote{To understand this intuitively, consider a municipality which had one highway ray in 1970, and received a second highway ray in 1971. The effect of population change which we observe between 1970--1980 is in fact explained by two highway rays, but we will attribute it to only one ray which existed in 1970.} Hence, we measure:\\	
+	\begin{equation*}
+		H^{*}_{i,70} = H_{i,70} + \eta_{i,70}.	
+	\end{equation*}
+	where the measurement error $\eta_{i,70}$ represents highway expansion that occurred during the subsequent decade (1970--1980). As random measurement error tends to bias coefficients towards zero, this measurement error may also partly explain the underestimation of the OLS estimators (see Table \ref{ch3.tbl:4}). 
+	We emphasize that our instrumental variable approach addresses this issue, given the reasonable assumption that the instruments are uncorrelated with the measurement error $\eta_{i}$ \citep{Hausman2001x}.\footnote{Correlation tests between both instruments and the extensions of the highways between 1970--1980 (the measurement error) show values below $\rho=0.1$ for highway rays and for highway density, supporting this assumption.}		
+	To examine this further, we conduct an additional sensitivity analysis, to test the implications of the measurement error by examining the effects of the 'smoothed' highway extent variables. Following \citet{Baum-Snow2007}, 'smoothed' highway extent can be calculated by multiplying the highway stock by the share of roads completed in each subsequent year of the examined period. We observe nationally aggregated information on the extent of the highway network per year, hence we assign smoothing values $\theta \in [0,1]$, in the following manner:		
+	\begin{equation}\label{ch3.eq:smooth}		
+		H^{Smooth}_{i,70} = H_{i,70} + \theta (H_{i,80}-H_{i,70}), 
+	\end{equation}
+	where assignment of value $\theta=0$ implies no error in measurement $(H^{Smooth}_{i,70} = H_{i,70})$. If the construction of the highways occurred uniformly over time and across space (namely, if highway were constructed at the same pace throughout the country), the optimal smoothing parameter value would be $\theta=0.5$. Using nationally aggregated information on the annual highway network extent in kilometer length \citep{Ligtermoet1990}, we approximate the optimal $\theta$ value by calculating the share of highway kilometers completed each year, of the total development which was completed at the end of the decade. The average share, or the optimal smoothing value, is $\theta=0.391$, which reflects the fact that highway construction occurred mostly during the first half of the decade. Since this $\theta$ value relies on national aggregates per year, it may not be optimal if highway construction did not occur uniformly across the country. To address this, we estimate the model for smoothed highway extent measure, under various $\theta$ parameter values. The estimation results, presented in \ref{appe_new}, show similar values as our main IV findings (for both highway rays and density) in Table \ref{ch3.tbl:3}. 
+			
+\subsection{Effects on population growth (developments in preceding and subsequent decades)}
+	We have also estimated our model to examine the effects of highways on population growth in preceding and subsequent decades, between 1960--1970, and 1980--1990 (Table \ref{ch3.tbl:b6090}). We also examine the period 1960--1980, to investigate the presence of a two-decade effect.
+	Since buffer zones are defined in 1966, we use an instrument for this variable in our 1960--1970 and 1960--1980 analyses, similarly to the approach shown in Table \ref{ch3.tbl:intiv}. The result of the 1960--1970 and 1960--1980 analyses are similar to our findings from 1970--1980. During these two periods, the effect of highways on population growth in the periphery appear to be stronger in magnitude. A possible reason for this is that highway extent in 1960 were concentrated in the surroundings of central cities, and that suburbanization was not yet limited by policy restriction (which followed during the decade, in the 1966 Report on Physical Planning policy paper).\footnote{The coefficients of the 1960--1980 analysis are likely to be exposed to the measurement error problem discussed in Section \ref{sec:measure.err}, and are therefore also estimated using smoothed highway extent $H^{Smooth}_{i,60} = \theta H_{i,60} + \theta  H_{i,70} + \theta H_{i,80}$, where $\theta = \frac{1}{3}$.}	
+	
+	The results of the 1980--1990 analysis show no statistically significant effects of highway extent in the full sample.\footnote{The effects become weakly significant when we use the subsample of peripheral municipalities.} The effects of buffer zones remain negative and significant, indicating that the presence of development restrictions continues to determine population growth in this period as well.	
+	Possible reasons for the absence of evidence for strong highways effects one decade later is that much of the redistribution of population might have already taken place before 1980, during the years immediately following the great expansion of the highway network. This would suggest that highway effects estimated on the 1970--1980 data represent a long-run effect of approximately 10 to 20 years, after which the effect on population redistribution stabilizes and a new equilibrium is reached.\footnote{An additional explanation is that the period 1980-1990 was characterized by national policies which aimed to reduce private car dependency and promote awareness of road externalities. This is also reflected in deceleration in car ownership compared with previous decades (see Figure \ref{appa:fig:3}).}
+	Our interpretation is that Dutch planning policies aimed to prevent the formation of a large urban conurbation and to preserve agricultural activities and nature. While this policy was effective in achieving its original objectives, it had additional consequences when the highway network was extended. The restrictions that were imposed were compensated by strong population growth in peripheral areas, which resulted in increased commuting distances and time \citep{Cheshire2018,Schwanen2001,Schwanen2004}. Spatial policies in the following decades addressed this by enforcing stricter development restrictions regarding the preservation of open space, and attempting to direct urban population and employment growth back to existing urban areas.\footnote{See discussion in \citet{Dieleman1999a,Geurs2006a}.}
+
+%\newpage	
+\section{Conclusion}
+
+	There is a large literature which shows that new highways depopulate city centers. We examine this in the context of the Netherlands where land development restrictions are common. Our analysis focuses on the expansion of the highway network in the 1960’s, and its effects on population growth in central cities, suburbs and peripheral areas. We have addressed endogeneity issues by using 1821 road network rays and density as instruments, and employed several innovative approaches to deal with endogeneity in the interaction of highway measures and different types of municipalities (central cities, suburbs and peripheral). In contrast to other countries, our findings for the Netherlands show no effect of highways for suburban areas. This finding is in line with the idea that strict planning policies and land development restrictions strongly interfere with the effects of highways. In line with the literature, our results show that the rapid development of the Dutch highway network had a substantial effect on changes in the population distribution, and that an increase in one standard deviation in highways extent accelerated population growth in peripheral areas by about 7-10 percent, and reduced population growth in central cities. Hence, our results provide indicative evidence that when land development is restricted in the surroundings of cities, new highways divert population growth to locations further away from central cities. The development of the highway network results then in a large scale sprawl, which skips the suburbs and leapfrogged to peripheral towns. 
+	
+
+
+%\newpage
+\section*{References}
+	% \renewcommand{\APACrefYearMonthDay}[3]{\APACrefYear{#1}} % Remove months from bibliography entries
+	\setlength{\bibsep}{0pt}
+	\bibliography{library}
+	\bibliographystyle{apalike}
+	% \bibliographystyle{elsarticle-harv}
+
+\newpage
+\appendix
+\renewcommand*{\thesection}{\appendixname~\Alph{section}}
+\renewcommand\thetable{\Alph{section}.\arabic{table}} 
+\renewcommand\thefigure{\Alph{section}.\arabic{figure}} 
+\setcounter{table}{0}   
+\setcounter{figure}{0}   
+\section[Appendix A]{The model}\label{appa0}
+	We use the quasi-linear utility function:
+	\begin{equation}\label{appa0:eq.a1}
+		U(C,L) = C + \alpha L^\beta, \quad	\,\, 0<\beta<1 	.
+	\end{equation} 
+	Substitution of the budget constraint gives:
+	\begin{equation}\label{appa0:eq.a2}
+		U = I - tx - r(x)L + \alpha L^\beta.
+	\end{equation} 
+	Maximization w.r.t. $L$ leads to the demand function for land:
+	\begin{equation}\label{appa0:eq.a3}
+		L = (\frac{\alpha\beta}{r(x)})^{\frac{1}{1-\beta}}.
+	\end{equation} 
+	One can derive the following equation for the rent (see \citet[p.29]{Glaeser2008b}):
+	\begin{equation}\label{appa0:eq.a4}
+		r(x) = \alpha^{\frac{1}{\beta}}\beta(1-\beta)^{\frac{1-\beta}{\beta}}(\bar{U}-I+tx)^{\frac{\beta-1}{\beta}}.
+	\end{equation} 
+	The border of the city $\bar{x}$ is located where the residential rent equals the agricultural rent $r^{agr}$:
+	\begin{equation}\label{appa0:eq.a5}
+		\bar{x} = \frac{1}{t}(\alpha^{\frac{1}{1-\beta}}\beta^{\frac{\beta}{1-\beta}}(1-\beta){r^{agr}}^{\frac{-\beta}{1-\beta}} - \bar{U} - I).
+	\end{equation} 
+	Population density $s(x)$ is equal to the inverse of the demand for land and can be computed by substitution of (\ref{appa0:eq.a4}) into (\ref{appa0:eq.a3}) and taking the inverse of the resulting equation:
+	\begin{equation}\label{appa0:eq.a6}
+		s(x) = \frac{\beta^{\frac{1}{1-\beta}}(1-\beta)^{\frac{1}{\beta}}\alpha^{\frac{1}{\beta(1-\beta)}}}{(\alpha\beta)^{\frac{1}{1-\beta}}}(\bar{U}-I+tx)^{\frac{-1}{\beta}}.
+	\end{equation} 
+	The equilibrium level of utility is determined by the requirement that all $N$ workers live between the CBD ($x=0$) and the edge of the city at $\bar{x}$:
+	\begin{equation}\label{appa0:eq.a7}
+		\int_{0}^{\bar{x}}{s(x)}dx = N.
+	\end{equation}
+	Substitution of (\ref{appa0:eq.a7}) then gives:
+	\begin{equation}\label{appa0:eq.a8}
+		[(\bar{U}-I+t\bar{x})^{1-\frac{1}{\beta}} - (\bar{U}-I)^{1-\frac{1}{\beta}}]\frac{\beta}{t(1-\beta)}\frac{\beta^{\frac{1}{1-\beta}}(1-\beta)^{\frac{1}{\beta}}\alpha^{\frac{1}{\beta(1-\beta)}}}{(\alpha\beta)^{\frac{1}{1-\beta}}} = N.
+	\end{equation}
+	After a substitution of (\ref{appa0:eq.a5}) into (\ref{appa0:eq.a8}), an equation results that has $\bar{U}$ as the only endogenous variable. This has been used to determine $\bar{U}$ numerically after values of all other parameters have been chosen. 
+	With a green belt present, (\ref{appa0:eq.a7}) becomes:
+	\begin{equation}\label{appa0:eq.a9}
+		\int_{0}^{x^l}{s(x)}dx + \int_{x^u}^{\bar{x}}{s(x)}dx = N.
+	\end{equation}
+	We can again substitute (\ref{appa0:eq.a5}) to obtain an equation which can be solved numerically for $\bar{U}$.
+	We used this model for the simulation underlying Figure \ref{ch3.fig:1}. The following parameter values have been used:
+	\begin{equation}\label{appa0:eq.a10}
+		\alpha = 5, \quad  \beta = 0.6, \quad r^{agr} = 5, \quad I = 50
+	\end{equation}
+	Initially we set:
+	\begin{equation}\label{appa0:eq.a11}
+		t = 0.1, \quad N = 500
+	\end{equation}
+	Numerically solvingthe model gives $\bar{x} = 9.04$. To show the impact of the highway, we decrease $t$ and compute the implied new border of the city:
+	\begin{equation}\label{appa0:eq.a12}
+		t = 0.015, \quad \bar{x} = 46.29
+	\end{equation}
+	The new value of $t$ is clearly not meant as realistic with respect to the impact of a highway on travel cost, but to get a clear picture of the qualitative effects.\\
+	The next exercise is the introduction of a green belt. We set its border as:
+	\begin{equation}\label{appa0:eq.a13}
+		x^l = 10, \quad x^u = 25
+	\end{equation}
+	and use (\ref{appa0:eq.a9}). Similar as lead us from (\ref{appa0:eq.a7}) to (\ref{appa0:eq.a8}), substitution of (\ref{appa0:eq.a5}) and the numerical parameter values in the resulting equation and solving for the equilibrium utility level allows us to compute the new city border as $\bar{x} = 50.66$. Finally we increase the population to $N = 750$ and find the new border of the city, with the green belt still present, as $\bar{x} = 54.30$.
+
+\newpage	
+\section[Appendix B]{Road networks}\label{appa}
+
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{Main roads in the Netherlands (1821)}
+		\includegraphics[width=0.5\linewidth]{fig/Fig_A1_new}
+		\floatfoot{Source: Rijkswaterstaat Beeldbank, multimedia archive (2015) - \emph{Kaart der grote wegen van de 1e klaste met zij kalkvers volgens W.B. 13 maart 1821}. [https://beeldbank.rws.nl/MediaObject/Details/344244 , accessed: December 18th 2016]}
+	\label{appa:fig:1}
+	\end{figure}
+
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{The highway network in 1960 and 1970}
+		\includegraphics[width=0.7\linewidth]{fig/Fig_A2_new}
+		\floatfoot{Source: Nationaal Historisch Wegenbestand , Data portal of the Dutch government (2015) [https://data.overheid.nl/data/dataset/nationaal-historisch-wegenbestand, accessed: December 19th 2016]}
+		\label{appa:fig:2}
+	\end{figure}
+
+	\begin{figure}[!]
+		\centering
+		\caption{Highway network length and car ownership (1945--1990)}
+		\includegraphics[width=0.9\linewidth]{fig/Fig_A3.png}
+		\floatfoot{Source: \citet{Ligtermoet1990}, Statistics Netherlands (2016)}
+		\label{appa:fig:3}
+	\end{figure}
+
+\newpage
+\section[Appendix C]{Endogeneity in the interaction terms}\label{appb}
+		
+	We demonstrate here that given that the municipality type variables ($P_{i}, S_{i},$ and $C_{i}$) are mutually exclusive categorical variables (i.e, dummy variables that sum to one), the single first-stage approach generates consistent and more efficient estimators compared to the multiple first stage approach. 	
+	To demonstrate this, first consider a multiple first-stage approach in which all coefficients are allowed to vary for periphery, suburbs or central cities: 	
+	\begin{subequations}\label{eq:iv1}
+		\begin{eqnarray}
+		P_{i}H_{i}=&\delta_{P}P_{i} + \delta_{P,Z1}P_{i}Z_{1,i}+ \delta_{P,Z2}P_{i}Z_{2,i} + \sum_{k}\gamma_{P,k} P_{i}X_{i,k} + u_{p,i} \label{eq:iv1a} \\
+		S_{i}H_{i}=&\delta_{S}S_{i} + \delta_{S,Z1}S_{i}Z_{1,i}+ \delta_{S,Z2}S_{i}Z_{2,i} + \sum_{k}\gamma_{S,k} S_{i}X_{i,k} + u_{s,i} \label{eq:iv1b} \\
+		C_{i}H_{i}=&\delta_{C}C_{i} + \delta_{C,Z1}C_{i}Z_{1,i}+ \delta_{C,Z2}C_{i}Z_{2,i} + \sum_{k}\gamma_{C,k} C_{i}X_{i,k} + u_{c,i} \label{eq:iv1c}			
+		\end{eqnarray}
+	\end{subequations}
+	where $P_{i} + S_{i} + C_{i} = 1$. 
+	It is well known that using (\ref{ch3.eq:1}) and (\ref{eq:iv1}) together generates consistent estimators (Wooldridge, 2002, p. 122). %, provided that the first-stage instruments are strong.
+	These first stages can equivalently be estimated jointly by summing equations (\ref{eq:iv1a}), (\ref{eq:iv1b}) and (\ref{eq:iv1c}):	
+	\begin{equation}\label{eq:iv2}
+	\begin{split}
+	H_{i} =	 \delta_{P}P_{i} + \delta_{S}S_{i} + \delta_{C}C_{i} + 	(\delta_{P,Z1}P_{i} + \delta_{S,Z1}S_{i} + \delta_{C,Z1}C_{i})Z_{1,i} + \\
+	+ (\delta_{P,Z2}P_{i} + \delta_{S,Z2}S_{i} + \delta_{C,Z2}C_{i})Z_{2,i} + \\
+	+ \sum_{k} (\gamma_{P,k}P_{i} + \gamma_{S,k}S_{i} + \gamma_{C,k}C_{i}) X_{i,k} + u_i ,
+	\end{split}
+	\end{equation}
+	where  $U_i = u_{p,i} + u_{s,i} + u_{c,i}$. Hence, the single first-stage approach based on (\ref{ch3.eq:2}) is a special case of the multiple-first stage approach, given the restriction $\delta_{Zl} = \delta_{P,Zl}P_{i} + \delta_{S,Zl}S_{i} + \delta_{C,Zl}C_{i}$ for $l=[1,2]$, and $ \gamma_{k} = \gamma_{P,k}P_{i} + \gamma_{S,k}S_{i} + \gamma_{C,k}C_{i}$ for all $k=1\ldots K$. This restriction can be tested using a standard F-test. If it holds, the single first-stage approach is more efficient than the multiple first-stage approach, as follows from a general econometric argument that imposing valid restrictions improves the efficiency of estimators. % since it uses the pooled observations of the three different first stage approaches. 
+	Furthermore, note that the single first-stage approach is less likely to suffer from weak instruments (as it avoids using additional instruments for each endogenous interaction term). Therefore there may be cases where the approach is not only more efficient, but it is also more likely to produce less biased results.
+		
+	In Table \ref{ch3.tbl:4} we present the results of other approaches to address endogeneity in the interaction terms. We compare the results of the main model as presented in Table \ref{ch3.tbl:3} using (i) OLS, (ii) assuming that the interaction terms are exogenous (following the approach of Bun and Harrison, 2014), and (iii) assuming endogenous interaction terms, and estimating separate first steps for each term as commonly applied (e.g, Wooldridge, 2002). Note that the Kleibergen-Paap F-test of the single first-stage approach (presented in Table \ref{ch3.tbl:3}) is higher than the values of the test for exogenous interaction terms and multiple first-stage approaches. 
+	% Table 4
+	\input{tbl/tbl4_n2}
+	
+	The results show that for all instrumented approaches, and for both highway measures, the estimated interaction coefficient with peripheral municipalities obtains similar values, though somewhat lower, compared with the results in Table \ref{ch3.tbl:3}. This is likely to be related with a relatively low Kleibergen-Paap statistic value, which results in a downward bias of the estimates.
+	This underlines our argument that the standard and commonly used IV approach is not attractive and does not serve our empirical strategy.
+	Moreover, note that the multiple first-stage approach for highway rays (column 3) is likely invalid, as demonstrated by a low F-test value, implying that the results based on this approach are probably biased. 	
+	The Hausman test which compares the multiple first-stage approach with the exogenous interaction terms approach shows that we cannot reject the null hypothesis that the interaction terms (for both highway rays and density) can be regarded as exogenous.\footnote{Hausman test statistics show values of $0.043, 0.758$ and $0.007$ for interaction of highway rays with peripheral municipalities, suburbs and central cities respectively (corresponds with respective p-values of $0.835, 0.383$ and $0.929$), and values of $0.321, 2.204$ and $0.035$ for interaction of highway density with periphery, suburbs and central cities respectively (corresponds with respective p-values of $0.5704, 0.137$ and $0.851$). This implies that the null hypothesis cannot be rejected, and that the exogenous interaction terms approach can be considered as consistent and more efficient than the multiple first-stage approach.}	
+	
+	Notably, the effects of highways are found to be substantially lower in value when estimated in OLS (columns 1 and 4) compared with the instrumented estimations. This was also observed by \citet{Duranton2012b}, who attributed this to reversed causality, as areas with negative employment shocks have experienced more highway construction, and by \citet{Baum-Snow2007} who attributed it to measurement error due to the misspecification of the transportation infrastructure. 
+	We find reasons to believe that both issues are present in our analysis. First, Dutch spatial policy targeted specific peripheral towns to absorb population growth and to receive highway connections (i.e, the designated growth areas). Second, our highway extent measures also do not account for minor roads which may be responsible for facilitating commuting flows between central cities, suburbs and periphery. Moreover, they also does not account for unobserved new construction which occurred during the subsequent decade, but likely still influenced population growth during this period. This issue is discussed in section \ref{sec:measure.err}.
+	
+
+% \newpage
+\section[Appendix D]{Sensitivity analysis}\label{appc}
+\subsection{Definition of central cities and suburbs}\label{appc.1}
+% Table B1
+	\input{tbl/tblC1}	
+	
+% Table B2
+	\input{tbl/tblC2_n}
+
+\newpage	
+\subsection{Peripheral municipalities subsample}\label{appc.2}		
+% Table 6
+	\input{tbl/tbl6_n}	
+
+\newpage
+\subsection{Effects on population growth, 1960--1970}\label{appc.3}
+% \input{tbl/tblb_1970_justBS}
+	\input{tbl/tbl_60_90}
+
+\newpage	
+\section[Appendix D]{First stage regression results}\label{appd}	
+% Table C1
+	\input{tbl/tblD1_n}
+
+\newpage	
+\section[Appendix E]{Main results under varying smoothing parameters}\label{appe_new}	
+% Table D
+	\input{tbl/tbl_E}
+
+\newpage
+\section[Appendix F]{Green heart, buffer zones and nature coverage}\label{appf}
+
+	\begin{figure}[!hbtp]
+		\centering
+		\caption{Green heart, buffer zones and nature coverage}
+		\includegraphics[width=0.8\linewidth]{fig/Fig_C1_new}	
+		\label{appf:fig:1}
+	\end{figure}
+
+
+\end{document}
